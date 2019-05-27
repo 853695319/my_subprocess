@@ -1,3 +1,10 @@
+# Run
+>If capture_output is true, stdout and stderr will be captured. When used, the internal Popen object is automatically created with stdout=PIPE and stderr=PIPE. The stdout and stderr arguments may not be supplied at the same time as capture_output. If you wish to capture and combine both streams into one, use stdout=PIPE and stderr=STDOUT instead of capture_output.
+
+当`capture_output=True`时，run（）会将执行命令的输出重定向到PIPE，当运行那种持续性输出的命令时，不要用
+If you wish to capture and combine both streams into one, use stdout=PIPE and stderr=STDOUT instead of capture_output.
+所以，可以`stdout=fd and stderr=STDOUT` `fd file-like object`将结果保存到文件
+
 # Popen
 Popen是非堵塞型的
 ```python
