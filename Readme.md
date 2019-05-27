@@ -5,6 +5,18 @@
 If you wish to capture and combine both streams into one, use stdout=PIPE and stderr=STDOUT instead of capture_output.
 所以，可以`stdout=fd and stderr=STDOUT` `fd file-like object`将结果保存到文件
 
+# 正确杀死子进程
+如果超时到期，子进程不会被杀死，所以为了正确清理一个行为良好的应用程序应该杀死子进程并完成通讯。
+
+proc = subprocess.Popen(...)
+try:
+    outs, errs = proc.communicate(timeout=15)
+except TimeoutExpired:
+    proc.kill()  # kill -9
+    outs, errs = proc.communicate()  # 等待程序终止， 同wait（），确认子程序结束，防止成为僵尸进程
+
+
+
 # Popen
 Popen是非堵塞型的
 ```python
